@@ -133,6 +133,13 @@
               </a>
             </li>
           @endhasanyrole
+          <li class="nav-header">DOCUMENTATION</li>
+          <li class="nav-item">
+            <a href="{{route('help.index')}}" class="nav-link">
+              <i class="nav-icon fas fa-question"></i>
+              <p>Help</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

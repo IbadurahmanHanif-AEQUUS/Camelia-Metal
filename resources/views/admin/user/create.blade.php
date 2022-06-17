@@ -20,7 +20,7 @@
                                     @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="">Email</label>
+                                    <label for="">Employee Id</label>
                                     <input name="employeeId" type="text" class="form-control @error('employeeId') is-invalid @enderror" placeholder="Employee Id" value="{{old('employeeId')}}">
                                     @error('employeeId')
                                         <span class="text-danger help-block">{{$message}}</span>

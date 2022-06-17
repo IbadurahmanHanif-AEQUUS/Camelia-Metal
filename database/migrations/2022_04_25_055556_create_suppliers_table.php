@@ -17,7 +17,7 @@ class CreateSuppliersTable extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('grade');
-            $table->bigInteger('diameter');
+            $table->double('diameter',15,2);
             $table->bigInteger('qty_kg');
             $table->bigInteger('qty_coil');
             $table->timestamps();   

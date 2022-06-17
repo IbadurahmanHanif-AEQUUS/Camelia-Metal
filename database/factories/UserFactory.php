@@ -16,7 +16,7 @@ class UserFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'employeeId' => '000000000'.str_pad($this->faker->numberBetween(1,100),3,'0'),
+            'employeeId' => '00000'.str_pad($this->faker->numberBetween(1,100),3,'0'),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'api_token' => Str::random(80),

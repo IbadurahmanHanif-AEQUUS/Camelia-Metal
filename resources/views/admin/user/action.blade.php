@@ -1,5 +1,5 @@
 <a href="{{route('admin.user.edit',$model)}}" class="btn btn-warning">Edit</a>
-<button href="{{route('admin.user.destroy',$model)}}" class="btn btn-danger" id="delete">Delete</button>
+<button dusk="delete_{{$model->id}}" href="{{route('admin.user.destroy',$model)}}" class="btn btn-danger" id="delete">Delete</button>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>

@@ -41,7 +41,7 @@ class RealtimeApiController extends Controller
         //
         $data = $request->all();
 
-        $workorderId = Workorder::select('id')->where('wo_number',$data['workorder'])->first();
+        $workorderId = Workorder::select('id')->where('status_wo','on process')->first();
         if(!$workorderId)
         {
             return response()->json([

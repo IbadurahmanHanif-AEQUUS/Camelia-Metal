@@ -33,7 +33,17 @@ class UserRequest extends FormRequest
 
         return [
             'name'=>'required',
-            'employeeId'=>['required','min:8','max:8',$rule_user_unique]
+            'employeeId'=>['required','min:8','max:8',$rule_user_unique],
+            'role'  =>'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required'  => 'Kolom :attribute harus diisi.',
+            'min'   => 'Kolom :attribute harus setidaknya diisi 8 digit',
+            'max'   => 'Kolom :attribute tidak bisa diisi lebih dari 8 digit',
         ];
     }
 }

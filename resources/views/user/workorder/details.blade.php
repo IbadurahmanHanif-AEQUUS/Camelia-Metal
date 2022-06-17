@@ -278,7 +278,7 @@
                                     <p href="" class="text-secondary"> Diameter: {{$workorder->bb_diameter}} mm</p>
                                 </li>
                                 <li>
-                                    <p href="" class="text-secondary"> Qty/Coil: {{$workorder->bb_qty_pcs}} Pcs / {{$workorder->bb_qty_coil}} Pcs</p>
+                                    <p href="" class="text-secondary"> Qty/Coil: {{$workorder->bb_qty_pcs}} Kg / {{$workorder->bb_qty_coil}} Coil</p>
                                 </li>
                             </ul>
                             <h5 class="mt-5 text-muted">Finish Good</h5>

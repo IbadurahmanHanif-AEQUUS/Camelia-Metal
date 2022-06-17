@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -54,7 +55,9 @@ class UserController extends Controller
         $user = User::create([
             'name'=>$request->name,
             'employeeId'=>$request->employeeId,
-            'password'=>bcrypt('12345678')
+            'password'=>bcrypt('12345678'),
+            'api_token' => Str::random(80),
+            'email_verified_at'=>now()
         ]);
 
         $user->assignRole($request->role);

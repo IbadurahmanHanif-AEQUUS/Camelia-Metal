@@ -150,3 +150,8 @@ Breadcrumbs::for('production.index', function ($trail) {
     $trail->push('Production', route('production.index'));
 });
 
+//Help Index
+Breadcrumbs::for('help.index', function ($trail) {
+    $trail->push('Home', route('help.index'));
+});
+

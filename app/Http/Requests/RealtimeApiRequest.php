@@ -27,7 +27,6 @@ class RealtimeApiRequest extends FormRequest
     {
         return [
             //
-            'workorder'         =>['required'],
             'speed'             =>['required'],
             'counter'           =>['required']
         ];
