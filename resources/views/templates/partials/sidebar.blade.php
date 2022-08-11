@@ -61,6 +61,18 @@
                   </li>
                 @endhasrole
                 <li class="nav-item">
+                  <a href="{{route('admin.line.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-industry"></i>
+                    <p>Lines</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin.machine.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-cash-register"></i>
+                    <p>Machines</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="{{route('admin.supplier.index')}}" class="nav-link">
                     <i class="nav-icon fas fa-building"></i>
                     <p>Suppliers</p>

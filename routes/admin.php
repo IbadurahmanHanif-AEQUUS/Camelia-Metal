@@ -12,6 +12,8 @@ Route::get('/oee/data', 'DataController@oees')->middleware(['verified'])->name('
 Route::get('/smelting/data_wo', 'DataController@wo_smeltings')->middleware(['verified'])->name('smelting.data_wo');
 Route::get('/smelting/data', 'DataController@smeltings')->middleware(['verified'])->name('smelting.data');
 Route::get('/supplier/data', 'DataController@suppliers')->middleware(['verified'])->name('supplier.data');
+Route::get('/line/data', 'DataController@lines')->middleware(['verified'])->name('line.data');
+Route::get('/machine/data', 'DataController@machines')->middleware(['verified'])->name('machine.data');
 Route::get('/customer/data', 'DataController@customers')->middleware(['verified'])->name('customer.data');
 Route::get('/workorder/closed','WorkorderController@closedWorkorder')->middleware(['verified'])->name('workorder.closed');
 
@@ -26,8 +28,11 @@ Route::post('workorder/updateOrder', 'WorkorderController@updateOrder')->middlew
 Route::post('workorder/setWoStatus','WorkorderController@setWoStatus')->middleware(['verified'])->name('workorder.setWoStatus');
 Route::post('workorder/calculatePcsPerBundle','WorkorderController@calculatePcsPerBundle')->middleware(['verified'])->name('workorder.calculatePcsPerBundle');
 
-
 Route::resource('production','ProductionController');
+
+Route::resource('line','LineController');
+
+Route::resource('machine','MachineController');
 
 Route::resource('oee','OeeController');
 

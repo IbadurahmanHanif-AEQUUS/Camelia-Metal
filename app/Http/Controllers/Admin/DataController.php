@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Oee;
+use App\Models\Line;
 use App\Models\User;
 use App\Models\Machine;
 use App\Models\Product;
 use App\Models\Customer;
 use App\Models\Schedule;
 use App\Models\Smelting;
+use App\Models\Supplier;
 use App\Models\Workorder;
 use App\Models\Production;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Oee;
-use App\Models\Supplier;
 
 class DataController extends Controller
 {
@@ -253,6 +254,26 @@ class DataController extends Controller
         return datatables()->of($suppliers)
                 ->addIndexColumn()
                 ->addColumn('action','admin.supplier.action')
+                ->toJson();
+    }
+
+    public function lines()
+    {
+        $lines = Line::query();
+        return datatables()->of($lines)
+                ->addIndexColumn()
+                ->addColumn('action','admin.line.action')
+                ->toJson();
+    }
+    public function machines()
+    {
+        $machines = Machine::query();
+        return datatables()->of($machines)
+                ->addIndexColumn()
+                ->addColumn('line',function(Machine $model){
+                    return $model->line->name;
+                })
+                ->addColumn('action','admin.machine.action')
                 ->toJson();
     }
 

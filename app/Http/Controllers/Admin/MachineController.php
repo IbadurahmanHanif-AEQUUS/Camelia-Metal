@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Line;
 use App\Models\Machine;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MachineRequest;
 
 class MachineController extends Controller
 {
@@ -21,6 +23,9 @@ class MachineController extends Controller
     public function index()
     {
         //
+        return view('admin.machine.index',[
+            'title' => 'Admin: Machine'
+        ]);
     }
 
     /**
@@ -31,6 +36,10 @@ class MachineController extends Controller
     public function create()
     {
         //
+        return view('admin.machine.create',[
+            'title'         => 'Admin: Machine Line',
+            'lines'         => Line::all()
+        ]);
     }
 
     /**
@@ -39,9 +48,15 @@ class MachineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MachineRequest $request)
     {
         //
+        $supplier = Machine::create([
+            'name'      => $request->name,
+            'line_id'   => $request->line_id
+        ]);
+
+        return redirect()->route('admin.machine.index')->with('success','Data Added Successfully');
     }
 
     /**
@@ -64,6 +79,11 @@ class MachineController extends Controller
     public function edit(Machine $machine)
     {
         //
+        return view('admin.machine.edit',[
+            'title'    => 'Admin: Edit Machine',
+            'lines'    => Line::all(),
+            'machine'  => $machine,
+        ]);
     }
 
     /**
@@ -73,9 +93,15 @@ class MachineController extends Controller
      * @param  \App\Models\Machine  $machine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Machine $machine)
+    public function update(MachineRequest $request, Machine $machine)
     {
         //
+        $machine->update([
+            'name'          => $request->name,
+            'line_id'       => $request->line_id
+        ]);
+
+        return redirect()->route('admin.machine.index')->with('success','Data Updated Successfully');
     }
 
     /**
@@ -87,5 +113,7 @@ class MachineController extends Controller
     public function destroy(Machine $machine)
     {
         //
+        $machine->delete();
+        return redirect()->route('admin.machine.index')->with('success','Data Deleted Successfully');
     }
 }

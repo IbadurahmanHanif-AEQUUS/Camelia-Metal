@@ -12,4 +12,9 @@ class Line extends Model
     protected $fillable = [
         'name'
     ];
+
+    // public function machines()
+    // {
+    //     return $this->hasMany(Machine::class);
+    // }
 }

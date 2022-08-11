@@ -118,6 +118,46 @@ Breadcrumbs::for('admin.supplier.edit', function ($trail, $supplier) {
     $trail->push('Edit Supplier', route('admin.supplier.edit', $supplier));
 });
 
+// Line Index
+Breadcrumbs::for('admin.line.index', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Line', route('admin.line.index'));
+});
+
+// Line Create
+Breadcrumbs::for('admin.line.create', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Line', route('admin.line.index'));
+    $trail->push('Create Line', route('admin.line.create'));
+});
+
+// Line Edit
+Breadcrumbs::for('admin.line.edit', function ($trail, $line ) {
+    $trail->push('Home', route('home'));
+    $trail->push('Supplier', route('admin.line.index'));
+    $trail->push('Edit Line', route('admin.line.edit', $line));
+});
+
+// Machine Index
+Breadcrumbs::for('admin.machine.index', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Machine', route('admin.machine.index'));
+});
+
+// Machine Create
+Breadcrumbs::for('admin.machine.create', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Machine', route('admin.machine.index'));
+    $trail->push('Create Machine', route('admin.machine.create'));
+});
+
+// Machine Edit
+Breadcrumbs::for('admin.machine.edit', function ($trail, $machine ) {
+    $trail->push('Home', route('home'));
+    $trail->push('Machine', route('admin.machine.index'));
+    $trail->push('Edit Machine', route('admin.machine.edit', $machine));
+});
+
 // Customer Index
 Breadcrumbs::for('admin.customer.index', function ($trail) {
     $trail->push('Home', route('home'));

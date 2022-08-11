@@ -15,11 +15,11 @@ class CreateMachinesTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('lines_id');
+            $table->unsignedBigInteger('line_id');
             $table->string('name')->unique();
             $table->timestamps();
 
-            $table->foreign('lines_id')->references('id')->on('lines')
+            $table->foreign('line_id')->references('id')->on('lines')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });

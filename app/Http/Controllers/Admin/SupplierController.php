@@ -83,7 +83,7 @@ class SupplierController extends Controller
     {
         //
         return view('admin.supplier.edit',[
-            'title'         => 'Admin: edit Workorder',
+            'title'         => 'Admin: Edit Supplier',
             'supplier'     => $supplier,
         ]);
     }

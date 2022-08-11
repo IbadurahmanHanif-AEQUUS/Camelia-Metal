@@ -16,7 +16,7 @@ class MachineSeeder extends Seeder
     {
         //
         Machine::create([
-            'lines_id'  => '1',
+            'line_id'  => '1',
             'name'      => 'IB5'
         ]);
     }

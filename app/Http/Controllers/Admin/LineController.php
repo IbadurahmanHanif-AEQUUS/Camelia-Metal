@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Line;
 use Illuminate\Http\Request;
+use App\Http\Requests\LineRequest;
 use App\Http\Controllers\Controller;
 
 class LineController extends Controller
@@ -21,6 +22,9 @@ class LineController extends Controller
     public function index()
     {
         //
+        return view('admin.line.index',[
+            'title' => 'Admin: Line'
+        ]);
     }
 
     /**
@@ -31,6 +35,9 @@ class LineController extends Controller
     public function create()
     {
         //
+        return view('admin.line.create',[
+            'title'         => 'Admin: Create Line',
+        ]);
     }
 
     /**
@@ -39,9 +46,14 @@ class LineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LineRequest $request)
     {
         //
+        $supplier = Line::create([
+            'name'  => $request->name,
+        ]);
+
+        return redirect()->route('admin.line.index')->with('success','Data Added Successfully');
     }
 
     /**
@@ -64,6 +76,10 @@ class LineController extends Controller
     public function edit(Line $line)
     {
         //
+        return view('admin.line.edit',[
+            'title'         => 'Admin: edit Line',
+            'line'     => $line,
+        ]);
     }
 
     /**
@@ -73,9 +89,14 @@ class LineController extends Controller
      * @param  \App\Models\Line  $line
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Line $line)
+    public function update(LineRequest $request, Line $line)
     {
         //
+        $line->update([
+            'name'      => $request->name,
+        ]);
+
+        return redirect()->route('admin.line.index')->with('success','Data Updated Successfully');
     }
 
     /**
@@ -87,5 +108,7 @@ class LineController extends Controller
     public function destroy(Line $line)
     {
         //
+        $line->delete();
+        return redirect()->route('admin.line.index')->with('success','Data Deleted Successfully');
     }
 }
