@@ -17,13 +17,15 @@ class CreateSchedulesTable extends Migration
             //
             $table->id();
             $table->unsignedBigInteger('machine_id');
-            $table->date('date');
-            $table->string('shift_1');
-            $table->string('shift_2');
-            $table->string('shift_3');
+            $table->unsignedBigInteger('shift_id');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->timestamps();
 
             $table->foreign('machine_id')->references('id')->on('machines')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+            $table->foreign('shift_id')->references('id')->on('shifts')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });

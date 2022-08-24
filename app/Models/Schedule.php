@@ -11,14 +11,18 @@ class Schedule extends Model
 
     protected $fillable = [
         'machine_id',
-        'date',
-        'shift_1',
-        'shift_2',
-        'shift_3',
+        'shift_id',
+        'start',
+        'end'
     ];
 
     public function machine()
     {
         return $this->belongsTo(Machine::class);
+    }
+
+    public function shift()
+    {
+        return $this->belongsTo(Shift::class);
     }
 }

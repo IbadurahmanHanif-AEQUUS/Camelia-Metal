@@ -4,6 +4,7 @@ namespace App\Http\Controllers\operator;
 
 use App\Models\Oee;
 use App\Models\User;
+use App\Models\Downtime;
 use App\Models\Smelting;
 use App\Models\Workorder;
 use App\Models\Production;
@@ -40,14 +41,17 @@ class ProductionController extends Controller
             }
         }
         $oee    = Oee::where('workorder_id',$workorder->id)->first();
+        $downtimes = Downtime::where('workorder_id',$workorder->id)->get();
+        
         return view('operator.production.index',[
             'title'=>'Production Report',
-            'workorder' => $workorder,
-            'createdBy' => $user,
-            'smeltings' => $smeltings,
-            'productions'   => $productions,
-            'smeltingInputList'  => $smeltingInputList,
-            'oee'       => $oee
+            'workorder'             => $workorder,
+            'createdBy'             => $user,
+            'smeltings'             => $smeltings,
+            'productions'           => $productions,
+            'smeltingInputList'     => $smeltingInputList,
+            'oee'                   => $oee,
+            'downtimes'             => $downtimes,
         ]);
     }
 

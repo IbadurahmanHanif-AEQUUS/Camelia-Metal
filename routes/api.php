@@ -38,4 +38,12 @@ Route::group(['middleware'=>'auth:api'],function(){
     Route::post('/realtime','Api\RealtimeApiController@store');
 });
 
+Route::group(['middleware'=>'auth:api'],function(){
+    Route::post('/schedule','Api\ScheduleApiController@index');
+});
+
+Route::group(['middleware'=>'auth:api'],function(){
+    Route::post('/downtime','Api\DowntimeApiController@store'); 
+});
+
 

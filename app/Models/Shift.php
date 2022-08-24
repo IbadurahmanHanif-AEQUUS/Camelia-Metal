@@ -14,15 +14,16 @@ class Shift extends Model
         'start_time',
         'end_time',
         'break_1_start',
-        'breat_1_end',
+        'break_1_end',
         'break_2_start',
-        'breat_2_end',
+        'break_2_end',
         'break_3_start',
-        'breat_3_end',
+        'break_3_end',
         'break_4_start',
-        'breat_4_end',
+        'break_4_end',
         'break_5_start',
-        'breat_5_end'
+        'break_5_end',
+        'background_color'
     ];
     
 }

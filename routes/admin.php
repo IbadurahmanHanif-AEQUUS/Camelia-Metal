@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ScheduleController;
 
 Route::get('/user/data', 'DataController@users')->middleware(['verified'])->name('user.data');
 Route::get('/workorder/datadraft', 'DataController@workordersDraft')->middleware(['verified'])->name('workorder.datadraft');
@@ -30,6 +31,12 @@ Route::post('workorder/calculatePcsPerBundle','WorkorderController@calculatePcsP
 Route::resource('production','ProductionController');
 
 Route::resource('oee','OeeController');
+
+Route::get('/schedule/data',[ScheduleController::class,'data'])->middleware(['verified'])->name('schedule.data');
+Route::resource('schedule','ScheduleController');
+
+Route::resource('shift','ShiftController');
+
 
 Route::resource('supplier','SupplierController');
 Route::post('suppllier/getSupplierData','SupplierController@getSupplierData')->middleware(['verified'])->name('supplier.getSupplierData');
