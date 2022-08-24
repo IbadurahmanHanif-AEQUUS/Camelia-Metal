@@ -195,3 +195,10 @@ Breadcrumbs::for('help.index', function ($trail) {
     $trail->push('Home', route('help.index'));
 });
 
+// Admin Schedule
+Breadcrumbs::for('admin.schedule.index', function ($trail) {
+    $trail->push('Home', route('home'));
+    $trail->push('Schedule', route('admin.production.index'));
+});
+
+

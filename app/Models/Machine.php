@@ -24,4 +24,9 @@ class Machine extends Model
     {
         return $this->hasMany(Workorder::class);
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }

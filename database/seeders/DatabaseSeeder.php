@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(LineSeeder::class);
         $this->call(MachineSeeder::class);
+        $this->call(ShiftSeeder::class);
 
         \App\Models\Customer::factory(10)->create();
         \App\Models\Supplier::factory(10)->create();
