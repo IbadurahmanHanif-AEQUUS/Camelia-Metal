@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -117,5 +118,12 @@ class UserController extends Controller
         //
         $user->delete();
         return redirect()->route('admin.user.index')->with('success','Data Deleted Successfully');
+    }
+
+    public function resetPassword(Request $request)
+    {
+        User::find(json_decode($request->user)->id)->update(['password'=> Hash::make('12345678')]);
+   
+        return redirect()->route('admin.user.index')->with('success','Password Changed Successfully');
     }
 }

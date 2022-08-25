@@ -45,20 +45,6 @@ class DataController extends Controller
                     $combines = $model->tolerance_minus;
                     return round($combines,2);
                 })
-                // ->addColumn('status_prod',function(Workorder $model){
-                //     $combines = $model->status_prod;
-                //     if($combines){
-                //         return 'On Process';
-                //     }
-                //     return 'Waiting';
-                // })
-                // ->addColumn('status_wo',function(Workorder $model){
-                //     $combines = $model->status_wo;
-                //     if($combines){
-                //         return 'Closed';
-                //     }
-                //     return 'Open';
-                // })
                 ->addColumn('user',function(Workorder $model){
                     return $model->user->name;
                 })

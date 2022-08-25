@@ -30,17 +30,74 @@
               </a>
             </li>
           @else
+            <div class="card bg-transparent">
+              <div class="card-body text-primary" style="padding:8px; padding-left:15px;">
+                Name: {{Auth::user()->name}}
+                <br>
+                Id: {{Auth::user()->employeeId}}
+                <br>
+              </div>
+            </div>
+            <li class="nav-item">
+              <a href="{{route('change.password.index')}}" class="nav-link">
+                <i class="nav-icon fas fa-key"></i>
+                <p>Change Password</p>
+              </a>
+            </li>
             <li class="nav-item">
               <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 <i class="nav-icon fas fa-sign-out-alt"></i>
                 <p>Logout</p>
               </a>
-              
               <form action="{{route('logout')}}" method="POST" id="logout-form">
                 @csrf
               </form>
             </li>
           @endguest
+          @hasrole('super-admin')
+            <li class="nav-header">SUPER-ADMIN</li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-copy"></i>
+                <p>
+                  Super Admin
+                  <i class="fas fa-angle-left right"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{route('admin.user.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-user"></i>
+                    <p>Users</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin.line.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-industry"></i>
+                    <p>Lines</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin.machine.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-cash-register"></i>
+                    <p>Machines</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin.production.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-cash-register"></i>
+                    <p>Productions</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{route('admin.oee.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-chart-line"></i>
+                    <p>OEE</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          @endhasrole
           @hasanyrole('office-admin|super-admin')
             <li class="nav-header">ADMIN</li>
             <li class="nav-item">
@@ -52,30 +109,10 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                @hasrole('super-admin')
-                  <li class="nav-item">
-                    <a href="{{route('admin.user.index')}}" class="nav-link">
-                      <i class="nav-icon fas fa-user"></i>
-                      <p>Users</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="{{route('admin.schedule.index')}}" class="nav-link">
-                      <i class="nav-icon fas fa-calendar-alt"></i>
-                      <p>Schedule</p>
-                    </a>
-                  </li>
-                @endhasrole
                 <li class="nav-item">
-                  <a href="{{route('admin.line.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-industry"></i>
-                    <p>Lines</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('admin.machine.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-cash-register"></i>
-                    <p>Machines</p>
+                  <a href="{{route('admin.schedule.index')}}" class="nav-link">
+                    <i class="nav-icon fas fa-calendar-alt"></i>
+                    <p>Schedule</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -100,18 +137,6 @@
                   <a href="{{route('admin.workorder.closed')}}" class="nav-link">
                     <i class="nav-icon fas fa-clipboard-check"></i>
                     <p>Closed Workorder</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('admin.production.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-cash-register"></i>
-                    <p>Productions</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{{route('admin.oee.index')}}" class="nav-link">
-                    <i class="nav-icon fas fa-chart-line"></i>
-                    <p>OEE</p>
                   </a>
                 </li>
               </ul>

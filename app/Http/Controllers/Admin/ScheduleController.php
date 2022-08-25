@@ -75,6 +75,7 @@ class ScheduleController extends Controller
             ];
         }
         Schedule::insert($multiCreate);
+
         return response()->json([
             'message' => 'All Data Already Submitted',
         ],200);

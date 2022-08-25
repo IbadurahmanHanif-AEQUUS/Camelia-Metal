@@ -37,6 +37,10 @@
         @method("DELETE")
         <input type="submit" value="Delete" style="display:none">
     </form>
+    <form action="" method="POST" id="resetPasswordForm">
+        @csrf
+        <input type="text" name="user" value="{{Auth::user()}}" style="display:none">
+    </form>
 @endsection
 
 @push('scripts')
