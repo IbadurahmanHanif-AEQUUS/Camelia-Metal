@@ -25,9 +25,7 @@ class ChangePasswordController extends Controller
             'new_password' => ['required'],
             'new_confirm_password' => ['same:new_password'],
         ]);
-   
         User::find(Auth::user()->id)->update(['password'=> Hash::make($request->new_password)]);
-   
         return redirect()->route('home')->with('success','Password Changed Successfully');
     }
 }
