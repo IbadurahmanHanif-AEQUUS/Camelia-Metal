@@ -2,16 +2,16 @@
 
 namespace App\Events\app\Events;
 
+use App\Models\Downtime;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class DowntimeCaptured
+class DowntimeCaptured implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,10 +20,11 @@ class DowntimeCaptured
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public $downtime;
+    public function __construct($downtime)
     {
         //
-        $this->request = $request;
+        $this->downtime = $downtime;
     }
 
     /**
@@ -33,6 +34,6 @@ class DowntimeCaptured
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('downtime-channel');
     }
 }

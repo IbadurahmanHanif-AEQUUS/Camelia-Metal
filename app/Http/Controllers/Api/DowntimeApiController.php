@@ -7,6 +7,7 @@ use App\Models\Downtime;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\app\Events\DowntimeCaptured;
 
 class DowntimeApiController extends Controller
 {
@@ -54,19 +55,27 @@ class DowntimeApiController extends Controller
             ],404);
         }
         $workorder = Workorder::where('machine_id',$machine->id)->where('status_wo','on process')->get();
-        if(count($workorder)==0 || count($workorder) > 1)
+        if(count($workorder)==0)
         {
             return response()->json([
-                'message' => 'wokrorder More or Less Than One'
-            ],403);
+                'message' => 'No Downtime is Running'
+            ],200);
         }
-        Downtime::create([
+        if (count($workorder)>1) {
+            return response()->json([
+                'message' => 'More than one workorder is running'
+            ],200);
+        }
+
+        $downtime = Downtime::create([
             'workorder_id'      => $workorder[0]->id,
             'time'              => $aRequest['time'],
             'status'            => $aRequest['status'],
             'downtime'          => $aRequest['downtime'],
             'is_remark_filled'  => false,
         ]);
+
+        DowntimeCaptured::dispatch($downtime);
 
         return response()->json([
             'message' => 'Data Submitted Successfully'

@@ -16,7 +16,7 @@ class ChangePasswordController extends Controller
         return view('auth.change-password',[
             'title' => 'Change Password Form'
         ]);
-    } 
+    }
 
     public function store(Request $request)
     {
