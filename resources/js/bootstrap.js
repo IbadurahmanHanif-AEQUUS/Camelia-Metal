@@ -26,8 +26,3 @@ window.Echo = new Echo({
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     forceTLS: true
 });
-
-window.Echo.channel('downtime-channel').listen('DowntimeCaptured',function(event){
-    console.log('Berhasil listen ke pusher');
-    console.log(event);
-});

@@ -19,7 +19,7 @@ class WorkorderApiController extends Controller
         //
         $data = Workorder::where('status_wo','waiting')->orderBy('wo_order_num','ASC')->limit(3)->get();
 
-        if(is_null($data))
+        if(count($data) == 0)
         {
             return response()->json([
                 'message'=>'Resouce not found!'

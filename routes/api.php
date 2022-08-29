@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Events\DowntimeCaptured;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,7 @@ Route::group(['middleware'=>'auth:api'],function(){
 });
 
 Route::group(['middleware'=>'auth:api'],function(){
+    // DowntimeCaptured::dispatch('Downtime Captured');
     Route::post('/downtime','Api\DowntimeApiController@store'); 
 });
 

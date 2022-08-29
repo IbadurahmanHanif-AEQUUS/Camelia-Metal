@@ -14,6 +14,7 @@ class Downtime extends Model
         'time',
         'status',
         'downtime',
+        'is_downtime_stopped',
         'is_remark_filled'
     ];
 

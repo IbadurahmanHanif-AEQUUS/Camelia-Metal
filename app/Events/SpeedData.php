@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Events\app\Events;
+namespace App\Events;
 
-use App\Models\Downtime;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
-class DowntimeCaptured implements ShouldBroadcast
+class SpeedData
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,11 +19,9 @@ class DowntimeCaptured implements ShouldBroadcast
      *
      * @return void
      */
-    public $downtime;
-    public function __construct($downtime)
+    public function __construct()
     {
         //
-        $this->downtime = $downtime;
     }
 
     /**
@@ -34,6 +31,6 @@ class DowntimeCaptured implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('downtime-channel');
+        return new PrivateChannel('channel-name');
     }
 }

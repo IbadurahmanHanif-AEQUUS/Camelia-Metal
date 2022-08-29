@@ -102,6 +102,14 @@ Route::middleware(['verified'])->controller(ChangePasswordController::class)->gr
 });
 
 
+//
+// Downtime Controller
+//
+Route::middleware(['verified'])->controller(DowntimeController::class)->group(function(){
+    Route::post('/update-downtime','updateDataDowntime')->name('downtime.updateDowntime');
+});
+
+
 
 
 

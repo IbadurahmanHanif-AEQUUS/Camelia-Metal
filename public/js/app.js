@@ -2096,10 +2096,6 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   cluster: "ap1",
   forceTLS: true
 });
-window.Echo.channel('downtime-channel').listen('DowntimeCaptured', function (event) {
-  console.log('Berhasil listen ke pusher');
-  console.log(event);
-});
 
 /***/ }),
 

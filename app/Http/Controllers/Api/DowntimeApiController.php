@@ -7,7 +7,7 @@ use App\Models\Downtime;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\app\Events\DowntimeCaptured;
+use App\Events\DowntimeCaptured;
 
 class DowntimeApiController extends Controller
 {
@@ -58,7 +58,7 @@ class DowntimeApiController extends Controller
         if(count($workorder)==0)
         {
             return response()->json([
-                'message' => 'No Downtime is Running'
+                'message' => 'No Workorder is Running'
             ],200);
         }
         if (count($workorder)>1) {
@@ -68,20 +68,29 @@ class DowntimeApiController extends Controller
         }
 
         $downtime = Downtime::create([
-            'workorder_id'      => $workorder[0]->id,
-            'time'              => $aRequest['time'],
-            'status'            => $aRequest['status'],
-            'downtime'          => $aRequest['downtime'],
-            'is_remark_filled'  => false,
+            'workorder_id'          => $workorder[0]->id,
+            'time'                  => $aRequest['time'],
+            'status'                => $aRequest['status'],
+            'downtime'              => $aRequest['downtime'],
+            'is_downtime_stopped'   => call_user_func(function() use ($aRequest,$workorder){
+                                            if($aRequest['status']=='run'){
+                                                return false;
+                                            }
+                                            $lastRunDowntime = Downtime::where('workorder_id',$workorder[0]->machine->id)
+                                                                ->where('status','run')->orderBy('id','desc')->first();
+                                            $lastRunDowntime->update([
+                                                'is_downtime_stopped' => true,
+                                            ]);
+                                            return true;
+                                        }),
+            'is_remark_filled'      => false,
         ]);
 
-        DowntimeCaptured::dispatch($downtime);
+        event(new DowntimeCaptured($downtime));
 
         return response()->json([
             'message' => 'Data Submitted Successfully'
         ],200);
-
-
     }
 
     /**

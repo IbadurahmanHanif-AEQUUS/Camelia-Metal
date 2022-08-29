@@ -19,6 +19,7 @@ class CreateDowntimesTable extends Migration
             $table->time('time');
             $table->string('status');
             $table->bigInteger('downtime');
+            $table->boolean('is_downtime_stopped');
             $table->boolean('is_remark_filled');
             $table->timestamps();
         });
