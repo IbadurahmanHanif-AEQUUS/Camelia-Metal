@@ -26,9 +26,8 @@
   <script>
     $(document).ready(function(){
       updateDowntimeData();
-    })
-  </script>
-  <script>
+    });
+
     const Http = window.axios;
     const Echo = window.Echo;
 
@@ -48,28 +47,39 @@
           success:function(response){
             $('#downtime-event-count').html(response.data.length);
             var results = '';
-            for (let index = 0; index < 3; index++) {
+            var data_length = response.data.length;
+            if(response.data.length > 3)
+            {
+              data_length = 3;
+            }
+            for (let index = 0; index < data_length; index++) {
               const element = response.data[index];
-              var is_run = '';
-              if (element.status == 'run') 
+              var dtState = '<span class="float-right text-sm text-success">Stopped</span>';
+              var dtTime = '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + element.start_time + ' - ' + element.end_time + '</p>';
+              if (element.dt_status == 'run') 
               {
-                is_run = '<span class="float-right text-sm text-danger">Running</span>';
+                dtState = '<span class="float-right text-sm text-danger">Running</span>';
+                dtTime = '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + element.start_time + ' - Now</p>';
               }
               results += '<a href="#" class="dropdown-item">' + 
                             '<div class="media">' + 
                                 '<div class="media-body">' +
                                     '<h3 class="dropdown-item-title">' +
                                         element.machine_name + ' ( ' + element.workorder.wo_number + ' )' +
-                                        is_run +
+                                        dtState +
                                     '</h3>' + 
-                                    '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + element.time + '</p>' +
+                                    dtTime +
                                 '</div>' +
                             '</div>' +
                         '</a>' +
                         '<div class="dropdown-divider"></div>';
+
             };
-            results += '<a href="#" class="dropdown-item dropdown-footer">See All Downtime</a>'
+            results += '<a href="{{route('production.index')}}" class="dropdown-item dropdown-footer">See All Downtime</a>'
             $('#downtime-event-list').html(results);
+          },
+          error:function(response){
+            console.log(response.responseText);
           }
         });
     }

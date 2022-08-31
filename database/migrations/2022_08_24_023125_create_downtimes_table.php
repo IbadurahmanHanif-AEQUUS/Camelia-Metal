@@ -16,6 +16,7 @@ class CreateDowntimesTable extends Migration
         Schema::create('downtimes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('workorder_id');
+            $table->string('downtime_number');
             $table->time('time');
             $table->string('status');
             $table->bigInteger('downtime');

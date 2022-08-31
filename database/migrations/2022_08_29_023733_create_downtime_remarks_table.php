@@ -17,7 +17,8 @@ class CreateDowntimeRemarksTable extends Migration
             $table->id();
             $table->unsignedBigInteger('downtime_id');
             $table->boolean('is_waste_downtime');
-            $table->string('remarks');
+            $table->string('downtime_reason');
+            $table->string('remarks')->nullable();
             $table->timestamps();
 
             $table->foreign('downtime_id')->references('id')->on('downtimes')

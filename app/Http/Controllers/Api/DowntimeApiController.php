@@ -69,6 +69,15 @@ class DowntimeApiController extends Controller
 
         $downtime = Downtime::create([
             'workorder_id'          => $workorder[0]->id,
+            'downtime_number'       => call_user_func(function() use ($aRequest,$workorder){
+                                            if($aRequest['status']=='run')
+                                            {
+                                                return Date($workorder[0]->machine->id.'YmdHis');
+                                            }
+                                            $lastDowntimeRun = Downtime::where('workorder_id',$workorder[0]->machine->id)
+                                                                    ->where('status','run')->orderBy('id','desc')->first();
+                                            return $lastDowntimeRun->downtime_number;
+                                        }),
             'time'                  => $aRequest['time'],
             'status'                => $aRequest['status'],
             'downtime'              => $aRequest['downtime'],

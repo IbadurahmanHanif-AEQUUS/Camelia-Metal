@@ -159,7 +159,7 @@
             error: function(response){
                 Swal.fire({
                     position: 'top-end',
-                    icon: 'Failed',
+                    icon: 'error',
                     title: 'Failed to add new data. check data again',
                     showConfirmButton: false,
                     timer: 2000

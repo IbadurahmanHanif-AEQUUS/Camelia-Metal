@@ -109,6 +109,13 @@ Route::middleware(['verified'])->controller(DowntimeController::class)->group(fu
     Route::post('/update-downtime','updateDataDowntime')->name('downtime.updateDowntime');
 });
 
+//
+// Downtime Remarks Controller
+//
+Route::middleware(['verified'])->controller(DowntimeRemarkController::class)->group(function(){
+    Route::post('/submit-downtime-remark','submitDowntimeRemark')->name('downtimeRemark.submit');
+});
+
 
 
 

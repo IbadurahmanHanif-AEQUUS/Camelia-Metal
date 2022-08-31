@@ -15,6 +15,6 @@ class DowntimeController extends Controller
                             ->orWhere('is_downtime_stopped',false)
                             ->orderby('id','desc')->get();
         return new DowntimeCollection($downtimeData);
-        
     }
+
 }

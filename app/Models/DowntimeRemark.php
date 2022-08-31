@@ -12,6 +12,7 @@ class DowntimeRemark extends Model
     protected $fillable = [
         'downtime_id',
         'is_waste_downtime',
+        'downtime_reason',
         'remarks'
     ];
 

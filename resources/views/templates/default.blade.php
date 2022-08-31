@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     @include('templates.partials.head')
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed sidebar-collapse">
 <div class="wrapper">
     @include('templates.partials.preloader')
     @include('templates.partials.navbar')

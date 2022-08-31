@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\OeeRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductionRequest;
+use App\Http\Resources\Downtime\DowntimeCollection;
 
 class ProductionController extends Controller
 {
@@ -40,18 +41,20 @@ class ProductionController extends Controller
                 $smeltingInputList[] = $smelting->bundle_num;
             }
         }
-        $oee    = Oee::where('workorder_id',$workorder->id)->first();
-        $downtimes = Downtime::where('workorder_id',$workorder->id)->get();
-        
+        $oee        = Oee::where('workorder_id',$workorder->id)->first();
+        $downtimes  = Downtime::where('is_remark_filled',false)->where('status','stop')
+                                ->orWhere('is_downtime_stopped',false)
+                                ->orderby('id','desc')->get();
+
         return view('operator.production.index',[
-            'title'=>'Production Report',
+            'title'                 => 'Production Report',
             'workorder'             => $workorder,
             'createdBy'             => $user,
             'smeltings'             => $smeltings,
             'productions'           => $productions,
             'smeltingInputList'     => $smeltingInputList,
             'oee'                   => $oee,
-            'downtimes'             => $downtimes,
+            'downtimes'             => $downtimes
         ]);
     }
 

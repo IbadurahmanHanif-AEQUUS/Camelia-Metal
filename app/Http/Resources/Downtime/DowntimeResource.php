@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Downtime;
 
+use App\Models\Downtime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class DowntimeResource extends JsonResource
@@ -17,11 +18,22 @@ class DowntimeResource extends JsonResource
         return [
             'workorder'             => $this->workorder,
             'machine_name'          => $this->workorder->machine->name,
+            'downtime_number'       => $this->downtime_number,
             'downtime'              => $this->downtime,
             'is_downtime_stopped'   => $this->is_downtime_stopped,
             'is_remark_filled'      => $this->is_remark_filled,
-            'status'                => $this->status,
-            'time'                  => $this->time,
+            'dt_status'             => $this->status,
+            'start_time'            => Date('H:i',strtotime($this->time)),
+            'end_time'              => call_user_func(function()
+            {
+                $endTime = Downtime::select('time')->where('workorder_id',$this->workorder->id)
+                            ->where('status','stop')->where('downtime_number',$this->downtime_number)->first();
+                if(!$endTime)
+                {
+                    return null;
+                }
+                return Date('H:i',strtotime($endTime->time));                
+            }),
             'updated_at'            => $this->updated_at,
         ];
     }

@@ -11,11 +11,12 @@ class Downtime extends Model
 
     protected $fillable = [
         'workorder_id',
+        'downtime_number',
         'time',
         'status',
         'downtime',
         'is_downtime_stopped',
-        'is_remark_filled'
+        'is_remark_filled',
     ];
 
     public function Workorder()
