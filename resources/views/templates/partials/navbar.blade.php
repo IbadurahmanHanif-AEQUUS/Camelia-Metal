@@ -56,7 +56,7 @@
               const element = response.data[index];
               var dtState = '<span class="float-right text-sm text-success">Stopped</span>';
               var dtTime = '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + element.start_time + ' - ' + element.end_time + '</p>';
-              if (element.dt_status == 'run') 
+              if (element.dt_status == 'stop') 
               {
                 dtState = '<span class="float-right text-sm text-danger">Running</span>';
                 dtTime = '<p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>' + element.start_time + ' - Now</p>';

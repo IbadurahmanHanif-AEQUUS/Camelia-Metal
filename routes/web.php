@@ -84,6 +84,7 @@ Route::middleware(['verified'])->group(function(){
     Route::post('/operator/production/store',[ProductionController::class,'store'])->name('production.store');
     Route::post('/operator/production/getSmeltingNum',[ProductionController::class,'getSmeltingNum'])->name('production.getSmeltingNum');
     Route::post('/operator/production/storeOee',[ProductionController::class,'storeOee'])->name('production.storeOee');
+    Route::post('/operator/production/getProductionInfo',[ProductionController::class,'getProductionInfo'])->name('production.getProductionInfo');
 });
 
 //

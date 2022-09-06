@@ -42,9 +42,28 @@ class ProductionController extends Controller
             }
         }
         $oee        = Oee::where('workorder_id',$workorder->id)->first();
-        $downtimes  = Downtime::where('is_remark_filled',false)->where('status','stop')
+        $downtimes  = Downtime::where('is_remark_filled',false)
+                                ->where('workorder_id',$workorder->id)
+                                ->where('status','stop')
                                 ->orWhere('is_downtime_stopped',false)
-                                ->orderby('id','desc')->get();
+                                ->orderby('id','desc')
+                                ->get();
+        $productionCount = 0;
+        foreach($productions as $prod)
+        {
+            $productionCount += $prod->pcs_per_bundle;
+        }
+        $totalDowntime = 0;
+
+        $downtimeSummary = Downtime::where('status','stop')
+                                ->orWhere('is_downtime_stopped',false)
+                                ->where('workorder_id',$workorder->id)
+                                ->get();
+        foreach($downtimeSummary as $dt)
+        {
+            $totalDowntime += $dt->downtime;
+        }
+
 
         return view('operator.production.index',[
             'title'                 => 'Production Report',
@@ -52,6 +71,10 @@ class ProductionController extends Controller
             'createdBy'             => $user,
             'smeltings'             => $smeltings,
             'productions'           => $productions,
+            'reports'               => [
+                'production_count'  => $productionCount,
+                'total_downtime'    => $totalDowntime,
+            ],
             'smeltingInputList'     => $smeltingInputList,
             'oee'                   => $oee,
             'downtimes'             => $downtimes
@@ -65,6 +88,16 @@ class ProductionController extends Controller
         return response()->json([
             $smelting->smelting_num
         ]);
+    }
+
+    public function getProductionInfo(Request $request)
+    {
+        $production = Production::where('workorder_id',$request->workorder_id)
+                        ->where('bundle_num',$request->smelting_number)->first();
+        if (!$production) {
+            return response()->json('Data not found',404);
+        }
+        return response()->json($production,200);
     }
 
     /**

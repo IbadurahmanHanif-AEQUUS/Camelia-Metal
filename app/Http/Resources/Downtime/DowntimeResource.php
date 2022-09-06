@@ -23,17 +23,17 @@ class DowntimeResource extends JsonResource
             'is_downtime_stopped'   => $this->is_downtime_stopped,
             'is_remark_filled'      => $this->is_remark_filled,
             'dt_status'             => $this->status,
-            'start_time'            => Date('H:i',strtotime($this->time)),
-            'end_time'              => call_user_func(function()
+            'start_time'            => call_user_func(function()
             {
-                $endTime = Downtime::select('time')->where('workorder_id',$this->workorder->id)
-                            ->where('status','stop')->where('downtime_number',$this->downtime_number)->first();
-                if(!$endTime)
+                $startTime = Downtime::select('time')->where('workorder_id',$this->workorder->id)
+                            ->where('status','run')->where('downtime_number',$this->downtime_number)->first();
+                if(!$startTime)
                 {
                     return null;
                 }
-                return Date('H:i',strtotime($endTime->time));                
+                return Date('H:i',strtotime($startTime->time));
             }),
+            'end_time'              => Date('H:i',strtotime($this->time)),           
             'updated_at'            => $this->updated_at,
         ];
     }
