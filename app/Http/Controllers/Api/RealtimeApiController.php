@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\productionGraph;
 use App\Models\Realtime;
 use App\Models\Workorder;
 use Illuminate\Http\Request;
@@ -58,6 +59,8 @@ class RealtimeApiController extends Controller
         Realtime::create($data);
 
         Workorder::where('id',$workorderId->id)->update(['status_wo'=>'on process','wo_order_num'=>null]);
+
+        event(new productionGraph($data));
 
         return response()->json([
             'messages'=>'New data submited successfully'

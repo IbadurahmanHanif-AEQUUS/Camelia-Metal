@@ -165,6 +165,13 @@
 
 <script>
     $(function(){
+        $('.kanban').hide();
+        $('.speed').hide();
+        $('.counter').hide();
+        $('.speed-chart').hide();
+
+        updateSpeedChart();
+
         $('#reservationdatetime1').datetimepicker({ 
             format: 'YYYY-MM-DD',
         });
@@ -298,13 +305,9 @@
                 
     }
 
-
-    window.setInterval(() => {
-        $('.kanban').show();
-        $('.speed').show();
-        $('.counter').show();
+    function updateSpeedChart()
+    {
         $('.speed-chart').show();
-
         $.ajax({
             method:'GET',
             url:'{{route('realtime.ajaxRequestAll')}}',
@@ -359,7 +362,7 @@
                 $('.speed-chart').hide();
             }
         });
-        
+
         $.ajax({
             method:'GET',
             url:'{{route('realtime.ajaxRequest')}}',
@@ -367,20 +370,11 @@
             success:function(response){
                 document.getElementById('speedVal').innerHTML = response.speed +'<sup style="font-size: 20px">MPM</sup>';
                 $('.speed').hide();
-            }
-        });
-        
-        
-        $.ajax({
-            method:'GET',
-            url:'{{route('realtime.ajaxRequest')}}',
-                dataType:'json',
-            success:function(response){
-                document.getElementById('counterVal').innerHTML = response.counter +'<sup style="font-size: 20px">MPM</sup>';
+                document.getElementById('counterVal').innerHTML = response.counter +'<sup style="font-size: 20px">PCS</sup>';
                 $('.counter').hide();
             }
         });
-           
+        
         $.ajax({
             method:'GET',
             url:'{{route('realtime.workorderOnProcess')}}',
@@ -431,8 +425,12 @@
                 $('.kanban').hide();
             }
         });
+    }
         
-    }, 10000);
+    let productionChannel = Echo.channel('channel-production-graph');
+    productionChannel.listen('productionGraph',function(data){
+        updateSpeedChart();
+    });
     
 </script>
 @endpush

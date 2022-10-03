@@ -21,11 +21,10 @@
                                     <div class="row">
                                         <div class="col-md-8">
                                             <p class="text-center">
-                                                <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                                                <strong>Current Speed Performance</strong>
                                             </p>
                                             <div class="chart">
-
-                                                <canvas id="salesChart" height="180"
+                                                <canvas id="speedChart" height="180"
                                                     style="height: 180px;"></canvas>
                                             </div>
                                         </div>
@@ -345,6 +344,7 @@
 <script>
     $(document).ready(function(){
         updateDowntimeList();
+        updateSpeedChart();
     });
 
     let aChannel = Echo.channel('channel-downtime');
@@ -360,6 +360,69 @@
         }
         updateDowntimeList();
     });
+
+    let productionChannel = Echo.channel('channel-production-graph');
+    productionChannel.listen('productionGraph',function(data){
+        updateSpeedChart();
+    });
+
+    function updateSpeedChart(){
+        $('.speed-chart').show();
+        $.ajax({
+            method:'GET',
+            url:'{{route('realtime.ajaxRequestAll')}}',
+            dataType:'json',
+            success:function(response){
+                var areaChartCanvas = $('#speedChart').get(0).getContext('2d');
+
+                var areaChartData = {
+                    labels  : response['created_at'],
+                    datasets: [
+                        {
+                        label               : 'Production Speed',
+                        backgroundColor     : 'rgba(60,141,188,0.9)',
+                        borderColor         : 'rgba(60,141,188,0.8)',
+                        pointRadius          : false,
+                        pointColor          : '#3b8bba',
+                        pointStrokeColor    : 'rgba(60,141,188,1)',
+                        pointHighlightFill  : '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data                : response['speed']
+                        },
+                    ]
+                }
+
+                var areaChartOptions = {
+                    maintainAspectRatio : false,
+                    responsive : true,
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        xAxes: [{
+                        gridLines : {
+                            display : false,
+                        }
+                        }],
+                        yAxes: [{
+                        gridLines : {
+                            display : false,
+                        }
+                        }]
+                    }
+                }
+
+                // This will get the first returned node in the jQuery collection.
+                new Chart(areaChartCanvas, {
+                    type: 'line',
+                    data: areaChartData,
+                    options: areaChartOptions
+                })
+
+                $('.speed-chart').hide();
+            }
+        });
+    }
 
     function updateDowntimeList()
     {
@@ -414,6 +477,11 @@
                 if(data[index].end_time == null){
                     cardOpeningDiv = '<div class="card card-danger collapsed-card">';
                     dtTime = '<h3 class="card-title">' + data[index].start_time + ' - Now</h3>';
+                    downtimeListBody = '';
+                }
+                if(data[index].is_remark_filled == true){
+                    cardOpeningDiv = '<div class="card card-success collapsed-card">';
+                    dtTime = '<h3 class="card-title">' + data[index].start_time + ' - '+ data[index].end_time +'</h3>';
                     downtimeListBody = '';
                 }
                 downtimeList += cardOpeningDiv +
@@ -528,7 +596,6 @@
                 _token: '{{ csrf_token() }}'
             },
             success: function(response) {
-                console.log(response);
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',

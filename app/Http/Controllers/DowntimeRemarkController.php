@@ -12,10 +12,9 @@ class DowntimeRemarkController extends Controller
 
     public function submitDowntimeRemark(Request $request)
     {
-        $downtime = Downtime::where('downtime_number',$request->downtimeNumber)
-                        ->where('status','stop')->first();
+        $downtime = Downtime::where('downtime_number',$request->downtimeNumber);
         
-        if(is_null($downtime))
+        if(count($downtime->get())==0)
         {
             return response()->json([
                 'message' => 'Downtime Data Not Found'
@@ -29,7 +28,7 @@ class DowntimeRemarkController extends Controller
         ]);
 
         DowntimeRemark::create([
-            'downtime_id'       => $downtime->id,
+            'downtime_id'       => $downtime->get()[0]->id,
             'is_waste_downtime' => ($request->downtimeCategory == 'waste')?true:false,
             'downtime_reason'   => $request->downtimeReason,
             'remarks'           => $request->downtimeRemarks,

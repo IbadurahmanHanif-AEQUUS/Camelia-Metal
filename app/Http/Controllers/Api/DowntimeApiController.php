@@ -70,23 +70,23 @@ class DowntimeApiController extends Controller
         $downtime = Downtime::create([
             'workorder_id'          => $workorder[0]->id,
             'downtime_number'       => call_user_func(function() use ($aRequest,$workorder){
-                                            if($aRequest['status']=='run')
+                                            if($aRequest['status']=='stop')
                                             {
                                                 return Date($workorder[0]->machine->id.'YmdHis');
                                             }
                                             $lastDowntimeRun = Downtime::where('workorder_id',$workorder[0]->machine->id)
-                                                                    ->where('status','run')->orderBy('id','desc')->first();
+                                                                    ->where('status','stop')->orderBy('id','desc')->first();
                                             return $lastDowntimeRun->downtime_number;
                                         }),
             'time'                  => $aRequest['time'],
             'status'                => $aRequest['status'],
             'downtime'              => $aRequest['downtime'],
             'is_downtime_stopped'   => call_user_func(function() use ($aRequest,$workorder){
-                                            if($aRequest['status']=='run'){
+                                            if($aRequest['status']=='stop'){
                                                 return false;
                                             }
                                             $lastRunDowntime = Downtime::where('workorder_id',$workorder[0]->machine->id)
-                                                                ->where('status','run')->orderBy('id','desc')->first();
+                                                                ->where('status','stop')->orderBy('id','desc')->first();
                                             $lastRunDowntime->update([
                                                 'is_downtime_stopped' => true,
                                             ]);

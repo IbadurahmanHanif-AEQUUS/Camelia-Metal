@@ -55,15 +55,14 @@ class ProductionController extends Controller
         }
         $totalDowntime = 0;
 
-        $downtimeSummary = Downtime::where('status','stop')
-                                ->orWhere('is_downtime_stopped',false)
+        $downtimeSummary = Downtime::where('status','run')
+                                ->orWhere('is_downtime_stopped',true)
                                 ->where('workorder_id',$workorder->id)
                                 ->get();
         foreach($downtimeSummary as $dt)
         {
             $totalDowntime += $dt->downtime;
         }
-
 
         return view('operator.production.index',[
             'title'                 => 'Production Report',

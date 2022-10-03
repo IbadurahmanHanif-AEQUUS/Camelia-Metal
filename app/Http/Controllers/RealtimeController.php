@@ -58,12 +58,10 @@ class RealtimeController extends Controller
             'speed'         => array_column($data,'speed'),
             'created_at'    => array_column($data,'created_at')
         ];
+        for ($i=0; $i < count($response['created_at']); $i++) { 
+            $response['created_at'][$i] = date('H:i:s',strtotime($response['created_at'][$i]));
+        }
         return response()->json($response);
-        // return response()->json([
-        //     'speed'     => $data->speed,
-        //     'counter'   => $data->counter,
-        //     'created_at'=> $data->created_at
-        // ]);
     }
 
     public function workorderOnProcess()
