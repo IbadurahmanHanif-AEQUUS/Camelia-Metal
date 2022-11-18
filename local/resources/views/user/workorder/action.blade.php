@@ -1,0 +1,1 @@
+<a href="{{url('/workorder/'.$model->id.'/show')}}" class="btn btn-primary">See Details</a>

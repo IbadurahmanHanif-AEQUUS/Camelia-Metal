@@ -1,0 +1,1 @@
+<a href="{{url('operator/production/'.$model->id.'/show')}}" class="btn btn-primary">Go To Report Page</a>

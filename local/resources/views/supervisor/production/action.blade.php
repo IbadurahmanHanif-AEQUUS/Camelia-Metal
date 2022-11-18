@@ -1,0 +1,1 @@
+<a href="{{url('supervisor/production/'.$model->id.'/show')}}" class="btn btn-primary">Check Workorder Report</a>
